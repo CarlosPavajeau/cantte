@@ -1,5 +1,6 @@
 ---
 import Head from '@components/Head.astro'
+import Header from '@components/Header.astro'
 import '@fontsource/geist-sans'
 import '@styles/global.css'
 
@@ -12,11 +13,12 @@ const { title, description } = Astro.props
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="es" class="bg-background font-sans antialiased">
   <head>
     <Head title={title} description={description} />
   </head>
-  <body>
+  <body class="min-h-screen">
+    <Header/>
     <main>
       <slot />
     </main>
