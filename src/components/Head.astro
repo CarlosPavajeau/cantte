@@ -16,6 +16,9 @@ const { title, description } = Astro.props
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" media="(prefers-color-scheme: dark)">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" media="(prefers-color-scheme: light)">
+<link rel="icon" type="image/x-icon" href="/favicon.svg">
 <meta name="generator" content={Astro.generator} />
 
 <!-- Canonical URL -->
@@ -25,6 +28,7 @@ const { title, description } = Astro.props
 <title>{title}</title>
 <meta name="title" content={title} />
 <meta name="description" content={description} />
+<meta name="favicon" content="/favicon.ico" />
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
