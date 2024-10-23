@@ -28,11 +28,18 @@ const { title, description } = Astro.props
   <head>
     <Head title={title} description={description} />
   </head>
-  <body class="min-h-screen">
-    <Header/>
-    <main class="mb-[8rem]">
-      <slot />
-    </main>
-    <Footer/>
+  <body class="bg-white dark:bg-gray-900 transition-colors duration-300">
+    <Header />
+    <slot />
+    <Footer />
   </body>
 </html>
+
+<style is:global>
+  :root {
+    --swiper-theme-color: hsl(var(--primary));
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+</style>
