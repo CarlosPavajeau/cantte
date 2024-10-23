@@ -3,21 +3,20 @@ const currentYear = new Date().getFullYear()
 
 const footerLinks = [
   {
-    title: 'Company',
+    title: 'Empresa',
     links: [
-      { text: 'About', href: '#about' },
-      { text: 'Services', href: '#services' },
-      { text: 'Team', href: '#team' },
-      { text: 'Contact', href: '#contact' },
+      { text: 'Acerca de nosotros', href: '#about' },
+      { text: 'Servicios', href: '#services' },
+      { text: 'Contacto', href: '#contact' },
     ],
   },
   {
-    title: 'Resources',
+    title: 'Recursos',
     links: [
       { text: 'Blog', href: '/blog' },
-      { text: 'Case Studies', href: '#portfolio' },
-      { text: 'Documentation', href: '#' },
-      { text: 'Privacy Policy', href: '/privacy' },
+      { text: 'Casos de estudio', href: '#portfolio' },
+      { text: 'Documentación', href: '#' },
+      { text: 'Política de privacidad', href: '/privacy' },
     ],
   },
   {
@@ -25,7 +24,7 @@ const footerLinks = [
     links: [
       { text: 'LinkedIn', href: '#' },
       { text: 'Twitter', href: '#' },
-      { text: 'GitHub', href: '#' },
+      { text: 'GitHub', href: 'https://github.com/cantte' },
       { text: 'Instagram', href: '#' },
     ],
   },
@@ -61,6 +60,7 @@ const footerLinks = [
                 <li>
                   <a
                     href={link.href}
+                    target={link.href.startsWith("http") ? "_blank" : "_self"}
                     class="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-300"
                   >
                     {link.text}
@@ -102,7 +102,8 @@ const footerLinks = [
             </svg>
           </a>
           <a
-            href="#"
+            href="https://github.com/cantte"
+            target="_blank"
             class="text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-300"
             aria-label="GitHub"
           >
