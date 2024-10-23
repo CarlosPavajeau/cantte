@@ -5,7 +5,7 @@ import { ViewTransitions } from 'astro:transitions'
 
 type Props = {
   title: string
-  description: string
+  description?: string
 }
 
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site)
@@ -53,6 +53,24 @@ const { title, description } = Astro.props
       ),
     ].forEach((link) => link.remove())
 );
+</script>
+
+<script>
+  import AOS from 'aos';
+  import 'aos/dist/aos.css';
+  
+  // Initialize AOS
+  AOS.init({
+    duration: 800,
+    once: true,
+  });
+
+  // Handle dark mode
+  if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.documentElement.classList.add('dark')
+  } else {
+    document.documentElement.classList.remove('dark')
+  }
 </script>
   
 <script is:inline>
