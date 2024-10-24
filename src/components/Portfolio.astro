@@ -1,15 +1,16 @@
 ---
 const projects = [
   {
-    title: 'Dew',
-    category: 'Desarrollo web',
+    title: "Dew",
+    category: "Desarrollo web",
     description:
-      'Plataforma de punto de venta y gestión de inventario para pequeñas empresas.',
+      "Plataforma de punto de venta y gestión de inventario para pequeñas empresas.",
     image:
-      'https://images.unsplash.com/photo-1557821552-17105176677c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2089&q=80',
-    tags: ['Next.js', 'ePayco', 'Tailwind CSS', 'PostgreSQL'],
+      "https://images.unsplash.com/photo-1557821552-17105176677c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2089&q=80",
+    tags: ["Next.js", "ePayco", "Tailwind CSS", "PostgreSQL"],
+    href: "https://dew.cantte.com/",
   },
-]
+];
 ---
 
 <section id="portfolio" class="py-20">
@@ -67,10 +68,11 @@ const projects = [
 
             <div class="px-6 py-4 border-t border-gray-100 dark:border-gray-800">
               <a
-                href="#"
+                href={project.href}
+                target={project.href.startsWith("http") ? "_blank" : "_self"}
                 class="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium flex items-center"
               >
-                View Case Study
+                Ver más
                 <svg
                   class="w-5 h-5 ml-2"
                   fill="none"
