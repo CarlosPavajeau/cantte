@@ -15,7 +15,7 @@ import '@fontsource/geist-sans/900.css'
 
 import '@styles/global.css'
 
-type Props = {
+interface Props {
   title: string
   description?: string
 }
@@ -24,11 +24,11 @@ const { title, description } = Astro.props
 ---
 
 <!doctype html>
-<html lang="es" class="bg-background font-sans antialiased">
+<html lang="es" class="font-sans antialiased">
   <head>
     <Head title={title} description={description} />
   </head>
-  <body class="bg-white dark:bg-gray-900 transition-colors duration-300">
+  <body class="bg-white dark:bg-neutral-950 transition-colors duration-300">
     <Header />
     <slot />
     <Footer />
