@@ -1,5 +1,24 @@
-<header class="container mx-auto flex items-center justify-between py-6 px-4">
-  <div class="flex items-center gap-2">
-    <span class="font-semibold text-slate-800">cantte</span>
-  </div>
+---
+const navLinks = [
+  { label: 'Servicios', href: '#servicios' },
+  { label: 'Contacto', href: '#contacto' },
+]
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-sm border-b border-gray-100">
+  <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="/" class="text-lg font-semibold text-gray-900 tracking-tight">
+      cantte
+    </a>
+    <div class="flex items-center gap-8">
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          class="text-sm text-gray-600 hover:text-gray-900 transition-colors duration-150"
+        >
+          {link.label}
+        </a>
+      ))}
+    </div>
+  </nav>
 </header>

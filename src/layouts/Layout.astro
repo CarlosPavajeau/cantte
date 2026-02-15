@@ -3,16 +3,7 @@ import Footer from '@components/Footer.astro'
 import Head from '@components/Head.astro'
 import Header from '@components/Header.astro'
 
-import '@fontsource/geist-sans/100.css'
-import '@fontsource/geist-sans/200.css'
-import '@fontsource/geist-sans/300.css'
-import '@fontsource/geist-sans/400.css'
-import '@fontsource/geist-sans/500.css'
-import '@fontsource/geist-sans/600.css'
-import '@fontsource/geist-sans/700.css'
-import '@fontsource/geist-sans/800.css'
-import '@fontsource/geist-sans/900.css'
-
+import '@fontsource-variable/inter'
 import '@styles/global.css'
 
 interface Props {
@@ -24,11 +15,11 @@ const { title, description } = Astro.props
 ---
 
 <!doctype html>
-<html lang="es" class="font-sans antialiased">
+<html lang="es" class="antialiased">
   <head>
     <Head title={title} description={description} />
   </head>
-  <body class="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+  <body class="min-h-screen bg-white text-gray-900">
     <Header />
     <slot />
     <Footer />
@@ -36,9 +27,6 @@ const { title, description } = Astro.props
 </html>
 
 <style is:global>
-  :root {
-    --swiper-theme-color: hsl(var(--primary));
-  }
   html {
     scroll-behavior: smooth;
   }
