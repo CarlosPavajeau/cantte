@@ -21,7 +21,8 @@ const practices = [
     name: 'Idempotencia',
     text: 'Una petición repetida no crea un cobro ni una factura doble.',
     /** Trusted, authored markup: code identifiers are wrapped in <code>. */
-    where: 'Cetus: llave <code class="font-mono text-xs">Idempotency-Key</code> en cada emisión',
+    where:
+      'Cetus: llave <code class="font-mono text-xs">Idempotency-Key</code> en cada emisión',
   },
   {
     name: 'Colas de trabajo',
@@ -31,7 +32,8 @@ const practices = [
   {
     name: 'Webhooks firmados',
     text: 'Avisos verificables a otros sistemas, que se reenvían si algo falla.',
-    where: 'Cetus: eventos <code class="font-mono text-xs">invoice.accepted</code> y <code class="font-mono text-xs">document.delivered</code>',
+    where:
+      'Cetus: eventos <code class="font-mono text-xs">invoice.accepted</code> y <code class="font-mono text-xs">document.delivered</code>',
   },
   {
     name: 'Secretos cifrados',
