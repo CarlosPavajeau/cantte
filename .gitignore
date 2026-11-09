@@ -22,3 +22,8 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# impeccable working files
+.impeccable/review/
+.impeccable/mocks/
+.impeccable/config.local.json

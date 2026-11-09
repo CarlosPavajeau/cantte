@@ -4,30 +4,33 @@ import Head from '@components/Head.astro'
 import Header from '@components/Header.astro'
 
 import '@fontsource-variable/inter'
+import '@fontsource-variable/geist-mono'
 import '@styles/global.css'
 
 interface Props {
   title: string
-  description?: string
+  description: string
 }
 
 const { title, description } = Astro.props
 ---
 
 <!doctype html>
-<html lang="es" class="antialiased">
+<html lang="es-CO">
   <head>
     <Head title={title} description={description} />
   </head>
-  <body class="min-h-screen bg-white text-gray-900">
+  <body class="min-h-screen">
+    <a
+      href="#contenido"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground"
+    >
+      Saltar al contenido
+    </a>
     <Header />
-    <slot />
+    <main id="contenido">
+      <slot />
+    </main>
     <Footer />
   </body>
 </html>
-
-<style is:global>
-  html {
-    scroll-behavior: smooth;
-  }
-</style>

@@ -1,0 +1,25 @@
+---
+/** A full-width band: a short title, an optional lead, and its content. */
+interface Props {
+  id: string
+  title: string
+  lead?: string
+  class?: string
+}
+
+const { id, title, lead, class: className } = Astro.props
+const titleId = `${id}-titulo`
+---
+
+<section id={id} aria-labelledby={titleId} class:list={['border-t', className]}>
+  <div class="mx-auto flex max-w-6xl flex-col gap-12 px-4 py-section md:px-6">
+    <div class="flex max-w-2xl flex-col gap-4">
+      <h2 id={titleId} class="text-balance text-3xl font-medium tracking-heading sm:text-4xl md:text-5xl md:leading-[1.05]">
+        {title}
+      </h2>
+      {lead && <p class="text-pretty text-lg/8 text-muted-foreground">{lead}</p>}
+      <slot name="head" />
+    </div>
+    <slot />
+  </div>
+</section>

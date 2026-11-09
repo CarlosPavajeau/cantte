@@ -1,20 +1,48 @@
 ---
+import Mark from '@components/Mark.astro'
+import { mailtoHref, site } from '@data/site'
+
 const year = new Date().getFullYear()
 ---
 
-<footer id="contacto" class="border-t border-gray-200">
-  <div class="max-w-6xl mx-auto px-6 py-12 flex flex-col sm:flex-row items-center justify-between gap-4">
-    <div class="flex items-center gap-6">
-      <span class="font-semibold text-gray-900 tracking-tight">cantte</span>
-      <a
-        href="mailto:contact@cantte.com"
-        class="text-sm text-gray-500 hover:text-indigo-600 transition-colors duration-150"
-      >
-        contact@cantte.com
+<footer class="border-t">
+  <div class="mx-auto grid max-w-6xl grid-cols-2 gap-x-6 gap-y-10 px-4 py-12 md:grid-cols-6 md:px-6">
+    <div class="col-span-2 flex flex-col gap-3">
+      <a href="/" class="flex items-center gap-2.5" aria-label="cantte, inicio">
+        <Mark />
+        <span class="text-lg font-semibold tracking-tight">cantte</span>
       </a>
+      <p class="max-w-xs text-sm text-muted-foreground">
+        Desarrollo de software a la medida en Colombia. Plataformas web, APIs, apps móviles y analítica de datos.
+      </p>
     </div>
-    <p class="text-sm text-gray-400">
-      &copy; {year} cantte
-    </p>
+    <div class="flex flex-col gap-3 text-sm">
+      <p class="font-medium">Servicios</p>
+      <ul class="flex flex-col gap-2 text-muted-foreground">
+        <li><a href="#servicios" class="hover:text-foreground">Plataformas web</a></li>
+        <li><a href="#servicios" class="hover:text-foreground">APIs e integraciones</a></li>
+        <li><a href="#servicios" class="hover:text-foreground">Apps móviles</a></li>
+        <li><a href="#servicios" class="hover:text-foreground">Analítica de datos</a></li>
+      </ul>
+    </div>
+    <div class="flex flex-col gap-3 text-sm">
+      <p class="font-medium">Productos</p>
+      <ul class="flex flex-col gap-2 text-muted-foreground">
+        <li><a href="https://cetus.cantte.com" class="hover:text-foreground">Cetus</a></li>
+        <li><a href="https://cetus-docs.cantte.com" class="hover:text-foreground">Documentación de Cetus</a></li>
+        <li><a href="https://wappiz.cantte.com" class="hover:text-foreground">Wappiz</a></li>
+        <li><a href="https://github.com/CarlosPavajeau/wappiz" class="hover:text-foreground">Wappiz en GitHub</a></li>
+      </ul>
+    </div>
+    <div class="col-span-2 flex flex-col gap-3 text-sm">
+      <p class="font-medium">Contacto</p>
+      <ul class="flex flex-col gap-2 text-muted-foreground">
+        <li><a href={mailtoHref()} class="font-mono text-xs hover:text-foreground">{site.email}</a></li>
+        <li>Colombia · trabajo remoto en Latinoamérica</li>
+      </ul>
+    </div>
+  </div>
+  <div class="mx-auto max-w-6xl px-4 md:px-6">
+    <p class="border-t py-6 text-xs text-muted-foreground">© {year} cantte. Todos los derechos reservados.</p>
   </div>
 </footer>

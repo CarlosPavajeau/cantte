@@ -1,14 +1,65 @@
 ---
-import { ViewTransitions } from 'astro:transitions'
+import { faq, services, site } from '@data/site'
 
 interface Props {
   title: string
-  description?: string
+  description: string
 }
 
+const { title, description } = Astro.props
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site)
 
-const { title, description } = Astro.props
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ProfessionalService',
+    '@id': `${site.url}/#organization`,
+    name: site.name,
+    url: site.url,
+    email: site.email,
+    logo: `${site.url}/favicon.svg`,
+    description: site.description,
+    areaServed: [
+      { '@type': 'Country', name: 'Colombia' },
+      { '@type': 'Place', name: 'Latinoamérica' },
+    ],
+    address: { '@type': 'PostalAddress', addressCountry: 'CO' },
+    knowsLanguage: 'es',
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Servicios de desarrollo de software',
+      itemListElement: services.map((s) => ({
+        '@type': 'Offer',
+        itemOffered: { '@type': 'Service', name: s.name, description: s.summary },
+      })),
+    },
+    owns: [
+      {
+        '@type': 'SoftwareApplication',
+        name: 'Cetus',
+        url: 'https://cetus.cantte.com',
+        applicationCategory: 'BusinessApplication',
+        description: 'API de facturación electrónica para Colombia, conectada a la DIAN.',
+      },
+      {
+        '@type': 'SoftwareApplication',
+        name: 'Wappiz',
+        url: 'https://wappiz.cantte.com',
+        applicationCategory: 'BusinessApplication',
+        description: 'Plataforma de código abierto para agendar citas por WhatsApp.',
+      },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faq.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: { '@type': 'Answer', text: item.answer },
+    })),
+  },
+]
 ---
 
 <meta charset="utf-8" />
@@ -16,20 +67,34 @@ const { title, description } = Astro.props
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <meta name="generator" content={Astro.generator} />
 
-<link rel="canonical" href={canonicalUrl} />
-
 <title>{title}</title>
-<meta name="title" content={title} />
 <meta name="description" content={description} />
+<link rel="canonical" href={canonicalUrl} />
+<meta name="robots" content="index, follow" />
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
 
 <meta property="og:type" content="website" />
-<meta property="og:url" content={Astro.url} />
+<meta property="og:locale" content="es_CO" />
+<meta property="og:site_name" content={site.name} />
+<meta property="og:url" content={canonicalUrl} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={Astro.url} />
-<meta property="twitter:title" content={title} />
-<meta property="twitter:description" content={description} />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
 
-<ViewTransitions />
+<script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+<!-- Theme before first paint: follows the system until the visitor chooses. -->
+<script is:inline>
+  ;(() => {
+    let stored = null
+    try {
+      stored = localStorage.getItem('theme')
+    } catch {}
+    const dark = stored ? stored === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches
+    document.documentElement.classList.toggle('dark', dark)
+  })()
+</script>
