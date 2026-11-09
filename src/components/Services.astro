@@ -1,0 +1,44 @@
+---
+import Icon from '@components/Icon.astro'
+import Section from '@components/Section.astro'
+import { services } from '@data/site'
+---
+
+<Section
+  id="servicios"
+  title="Lo que construimos para tu empresa"
+  lead="Cuatro tipos de proyecto, un mismo estándar: el que usamos en nuestros propios productos. Cada proyecto termina con el código, la infraestructura y la documentación en tus manos."
+>
+  <ul class="border-t">
+    {
+      services.map((service) => (
+        <li class="grid gap-x-10 gap-y-5 border-b py-8 md:grid-cols-12 md:py-10">
+          <div class="flex flex-col gap-3 md:col-span-6">
+            <h3 class="text-xl font-medium tracking-tight md:text-2xl">{service.name}</h3>
+            <p class="max-w-prose text-pretty text-muted-foreground">{service.summary}</p>
+            <p class="text-sm text-muted-foreground">Por ejemplo: {service.examples}</p>
+          </div>
+          <ul class="grid grid-cols-2 content-start gap-x-4 gap-y-2 text-sm md:col-span-4 md:grid-cols-1">
+            {service.deliverables.map((item) => (
+              <li class="flex items-center gap-2">
+                <Icon name="check" class="size-3.5 text-muted-foreground" />
+                {item}
+              </li>
+            ))}
+          </ul>
+          <div class="flex md:col-span-2 md:justify-end">
+            <a
+              href="#contacto"
+              data-pick-service={service.id}
+              class="btn-outline h-9 px-3"
+              aria-label={`Cotizar: ${service.name}`}
+            >
+              Cotizar
+              <Icon name="arrow-right" class="size-3.5" />
+            </a>
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+</Section>

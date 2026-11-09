@@ -1,0 +1,94 @@
+---
+import Icon from '@components/Icon.astro'
+import { deliveries, mailtoHref, whatsappHref } from '@data/site'
+
+const whatsapp = whatsappHref()
+---
+
+<section aria-labelledby="hero-titulo">
+  <div
+    class="mx-auto grid max-w-6xl items-center gap-x-16 gap-y-14 px-4 pb-section pt-14 md:px-6 md:pt-24 lg:grid-cols-12"
+  >
+    <div class="flex flex-col gap-7 lg:col-span-7">
+      <h1 id="hero-titulo" class="text-balance text-display font-medium tracking-display">
+        <span class="block">Software a la medida.</span>
+        <span class="block text-muted-foreground">Lo construimos. Lo operamos.</span>
+      </h1>
+      <p class="max-w-xl text-pretty text-lg/8 text-muted-foreground">
+        Somos una empresa de desarrollo de software en Colombia. Construimos plataformas web, APIs e
+        integraciones, apps móviles y analítica de datos, y operamos nuestros propios productos en producción. No te mostramos maquetas: te mostramos lo que ya
+        entregamos.
+      </p>
+      <div class="flex flex-col gap-3 sm:flex-row">
+        <a href="#contacto" class="btn-primary">
+          Cuéntanos tu proyecto
+          <Icon name="arrow-right" />
+        </a>
+        {
+          whatsapp ? (
+            <a href={whatsapp} target="_blank" rel="noreferrer" class="btn-outline" data-contact="whatsapp">
+              <img src="/images/whatsapp-icon.svg" alt="" class="size-4" width="16" height="16" />
+              Hablar por WhatsApp
+            </a>
+          ) : (
+            <a href={mailtoHref()} class="btn-outline" data-contact="mail">
+              <Icon name="mail" />
+              Escribir un correo
+            </a>
+          )
+        }
+      </div>
+    </div>
+
+    <figure
+      class="ring-card overflow-hidden rounded-xl bg-card lg:col-span-5"
+      aria-labelledby="registro-titulo"
+    >
+      <figcaption
+        class="flex items-center justify-between gap-3 border-b px-4 py-2.5 text-xs text-muted-foreground"
+      >
+        <span id="registro-titulo">Registro de entregas</span>
+        <span class="inline-flex items-center gap-1.5">
+          <span class="size-1.5 rounded-full bg-success" aria-hidden="true"></span>
+          En producción
+        </span>
+      </figcaption>
+      <ol class="divide-y">
+        {
+          deliveries.map((entry, i) => (
+            <li class="log-entry grid grid-cols-[4.5rem_1fr] gap-x-4 px-4 py-3.5" style={`--i:${i}`}>
+              <time datetime={entry.date} class="pt-px font-mono text-xs text-muted-foreground">
+                {entry.label}
+              </time>
+              <p class="text-sm">
+                <span class="font-medium">{entry.product}</span>
+                {entry.version && <span class="ml-1 font-mono text-xs text-muted-foreground">{entry.version}</span>}
+                <span class="block text-muted-foreground">{entry.text}</span>
+              </p>
+            </li>
+          ))
+        }
+        <li class="log-entry" style={`--i:${deliveries.length}`}>
+          <a
+            href="#contacto"
+            class="group grid grid-cols-[4.5rem_1fr_auto] items-center gap-x-4 bg-muted/50 px-4 py-3.5 transition-colors duration-150 hover:bg-muted"
+          >
+            <span class="text-xs text-muted-foreground">Siguiente</span>
+            <span class="text-sm">
+              <span class="font-medium">Tu proyecto</span>
+              <span class="block text-muted-foreground">
+                <span data-log-service>¿Qué vamos a construir?</span><span
+                  class="caret ml-0.5 inline-block h-[1.05em] w-[2px] translate-y-[3px] bg-foreground"
+                  aria-hidden="true"></span>
+              </span>
+            </span>
+            <Icon
+              name="arrow-right"
+              class="size-4 text-muted-foreground transition-transform duration-150 group-hover:translate-x-0.5"
+            />
+          </a>
+        </li>
+      </ol>
+    </figure>
+  </div>
+</section>

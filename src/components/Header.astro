@@ -1,24 +1,75 @@
 ---
-const navLinks = [
+import Icon from '@components/Icon.astro'
+import Mark from '@components/Mark.astro'
+
+const links = [
   { label: 'Servicios', href: '#servicios' },
-  { label: 'Contacto', href: '#contacto' },
+  { label: 'Productos', href: '#productos' },
+  { label: 'Cómo trabajamos', href: '#proceso' },
+  { label: 'Preguntas', href: '#preguntas' },
 ]
 ---
 
-<header class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-sm border-b border-gray-100">
-  <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-    <a href="/" class="text-lg font-semibold text-gray-900 tracking-tight">
-      cantte
+<header class="sticky top-0 z-30 border-b bg-background/85 backdrop-blur">
+  <div class="mx-auto flex h-14 max-w-6xl items-center gap-6 px-4 md:px-6">
+    <a href="/" class="flex items-center gap-2.5" aria-label="cantte, inicio">
+      <Mark />
+      <span class="text-lg font-semibold tracking-tight">cantte</span>
     </a>
-    <div class="flex items-center gap-8">
-      {navLinks.map((link) => (
-        <a
-          href={link.href}
-          class="text-sm text-gray-600 hover:text-gray-900 transition-colors duration-150"
+
+    <nav aria-label="Principal" class="hidden flex-1 items-center gap-5 text-sm text-muted-foreground md:flex">
+      {
+        links.map((link) => (
+          <a href={link.href} class="transition-colors duration-150 hover:text-foreground">
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="ml-auto flex items-center gap-1">
+      <button
+        type="button"
+        data-theme-toggle
+        class="inline-flex size-9 items-center justify-center rounded-md text-muted-foreground transition-colors duration-150 hover:bg-muted hover:text-foreground"
+        aria-label="Cambiar entre tema claro y oscuro"
+      >
+        <Icon name="moon" class="size-4 dark:hidden" />
+        <Icon name="sun" class="hidden size-4 dark:block" />
+      </button>
+      <a href="#contacto" class="btn-primary ml-1 h-9 px-3">Escríbenos</a>
+      <details class="group relative md:hidden">
+        <summary
+          class="inline-flex size-9 cursor-pointer list-none items-center justify-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground [&::-webkit-details-marker]:hidden"
+          aria-label="Menú"
         >
-          {link.label}
-        </a>
-      ))}
+          <Icon name="menu" class="size-5" />
+        </summary>
+        <nav
+          aria-label="Menú móvil"
+          class="ring-card absolute right-0 top-11 flex w-56 flex-col rounded-lg bg-card p-1.5 text-sm shadow-sm"
+        >
+          {
+            links.map((link) => (
+              <a href={link.href} class="rounded-md px-3 py-2.5 hover:bg-muted" data-close-menu>
+                {link.label}
+              </a>
+            ))
+          }
+        </nav>
+      </details>
     </div>
-  </nav>
+  </div>
 </header>
+
+<script>
+  document.querySelector('[data-theme-toggle]')?.addEventListener('click', () => {
+    const dark = document.documentElement.classList.toggle('dark')
+    try {
+      localStorage.setItem('theme', dark ? 'dark' : 'light')
+    } catch {}
+  })
+  document.querySelectorAll('[data-close-menu]').forEach((link) =>
+    link.addEventListener('click', () => link.closest('details')?.removeAttribute('open')),
+  )
+</script>

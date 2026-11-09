@@ -1,0 +1,225 @@
+---
+import Icon from '@components/Icon.astro'
+import Section from '@components/Section.astro'
+
+const cetusFacts = [
+  'Facturas, notas crédito y notas débito firmadas y enviadas a la DIAN',
+  'Tres ambientes por llave de API: simulación, pruebas y producción',
+  'Webhooks firmados con reintentos y entrega por correo al adquiriente',
+  'Certificados del emisor sellados con AWS KMS',
+]
+
+const wappizFacts = [
+  'Tus clientes reservan desde WhatsApp, sin descargar nada',
+  'Servicios con duración y precio, por persona o espacio',
+  'Horarios, festivos y vacaciones en un solo lugar',
+  'Recordatorios automáticos antes de cada cita',
+]
+
+const practices = [
+  {
+    name: 'Idempotencia',
+    text: 'Una petición repetida no crea un cobro ni una factura doble.',
+    /** Trusted, authored markup: code identifiers are wrapped in <code>. */
+    where: 'Cetus: llave <code class="font-mono text-xs">Idempotency-Key</code> en cada emisión',
+  },
+  {
+    name: 'Colas de trabajo',
+    text: 'Lo lento ocurre en segundo plano, con reintentos, sin bloquear al usuario.',
+    where: 'Cetus: firma y envío a la DIAN · Wappiz: recordatorios',
+  },
+  {
+    name: 'Webhooks firmados',
+    text: 'Avisos verificables a otros sistemas, que se reenvían si algo falla.',
+    where: 'Cetus: eventos <code class="font-mono text-xs">invoice.accepted</code> y <code class="font-mono text-xs">document.delivered</code>',
+  },
+  {
+    name: 'Secretos cifrados',
+    text: 'Llaves y certificados sellados con un servicio de cifrado, nunca en texto plano.',
+    where: 'Cetus: certificados del emisor con AWS KMS',
+  },
+  {
+    name: 'Pruebas reales',
+    text: 'Base de datos real en las pruebas y navegador real en los flujos críticos.',
+    where: 'Cetus: Testcontainers y Playwright · Wappiz: Vitest en Chromium',
+  },
+  {
+    name: 'Pruebas de carga',
+    text: 'Medimos cuánto aguanta el sistema antes de que lo descubran tus clientes.',
+    where: 'Cetus: escenarios de carga con k6',
+  },
+]
+---
+
+<Section
+  id="productos"
+  title="Nuestros productos, nuestra mejor referencia"
+  lead="Antes de construir para clientes, construimos para nosotros. Cetus y Wappiz están en producción: APIs, integraciones, colas de trabajo y monitoreo que operamos todos los días. Así trabajamos en cada proyecto."
+>
+  <!-- Cetus -->
+  <article aria-labelledby="cetus-titulo" class="grid grid-cols-1 items-start gap-x-16 gap-y-10 border-t pt-12 lg:grid-cols-12">
+    <div class="flex flex-col gap-6 lg:col-span-5">
+      <div class="flex items-center gap-3">
+        <img src="/images/cetus-mark.svg" alt="" width="32" height="32" class="size-8 rounded-md dark:ring-1 dark:ring-white/15" />
+        <h3 id="cetus-titulo" class="text-2xl font-medium tracking-tight">Cetus</h3>
+      </div>
+      <p class="text-pretty text-lg/8">
+        API de facturación electrónica para Colombia, conectada a la DIAN. Un sistema envía JSON; Cetus genera el
+        XML, lo firma, lo envía a la DIAN y avisa el resultado.
+      </p>
+      <ul class="flex flex-col gap-2.5 text-sm text-muted-foreground">
+        {
+          cetusFacts.map((fact) => (
+            <li class="flex gap-2.5">
+              <Icon name="check" class="mt-0.5 size-4 text-foreground" />
+              {fact}
+            </li>
+          ))
+        }
+      </ul>
+      <p class="font-mono text-xs text-muted-foreground">Java · Quarkus · PostgreSQL · AWS · TanStack Start</p>
+      <div class="flex flex-wrap gap-3">
+        <a href="https://cetus.cantte.com" class="btn-outline h-10">
+          Visitar Cetus
+          <Icon name="arrow-up-right" class="size-3.5" />
+        </a>
+        <a href="https://cetus-docs.cantte.com" class="btn h-10 px-3 text-muted-foreground hover:bg-muted hover:text-foreground">
+          <Icon name="book-open" class="size-4" />
+          Documentación
+        </a>
+      </div>
+    </div>
+
+    <div class="flex min-w-0 flex-col gap-4 lg:col-span-7">
+      <figure class="min-w-0 overflow-hidden rounded-xl border bg-card">
+        <figcaption class="flex items-center justify-between border-b px-4 py-2 text-xs text-muted-foreground">
+          <span>Terminal</span>
+          <span>Emitir una factura</span>
+        </figcaption>
+        <pre
+          class="overflow-x-auto p-4 font-mono text-xs/relaxed"><code><span class="text-muted-foreground">$</span> curl -X POST https://cetus-api.cantte.com/v1/invoices \
+  -H <span class="text-muted-foreground">"Authorization: Bearer cetus_sandbox_…"</span> \
+  -H <span class="text-muted-foreground">"Idempotency-Key: 6f1c…"</span> \
+  -d <span class="text-muted-foreground">{`'{ "customer": { … }, "lines": [ … ] }'`}</span></code></pre>
+      </figure>
+
+      <figure class="overflow-hidden rounded-xl border bg-card">
+        <figcaption class="flex items-center justify-between border-b px-4 py-2 text-xs text-muted-foreground">
+          <span>Webhook</span>
+          <span>Lo que recibe tu sistema</span>
+        </figcaption>
+        <ol class="divide-y text-sm">
+          <li class="flex items-center justify-between gap-4 px-4 py-3">
+            <span class="flex items-center gap-2.5">
+              <Icon name="loader" class="size-4 text-info-foreground" />
+              Firmada y enviada a la DIAN
+            </span>
+            <code class="font-mono text-xs text-muted-foreground">PENDING</code>
+          </li>
+          <li class="flex items-center justify-between gap-4 px-4 py-3">
+            <span class="flex items-center gap-2.5">
+              <Icon name="circle-check" class="size-4 text-success-foreground" />
+              Validada por la DIAN
+            </span>
+            <code class="font-mono text-xs text-muted-foreground">invoice.accepted</code>
+          </li>
+          <li class="flex items-center justify-between gap-4 px-4 py-3">
+            <span class="flex items-center gap-2.5">
+              <Icon name="circle-check" class="size-4 text-success-foreground" />
+              Correo con el PDF entregado al cliente
+            </span>
+            <code class="font-mono text-xs text-muted-foreground">document.delivered</code>
+          </li>
+        </ol>
+      </figure>
+    </div>
+  </article>
+
+  <!-- Wappiz -->
+  <article aria-labelledby="wappiz-titulo" class="grid grid-cols-1 items-start gap-x-16 gap-y-10 border-t pt-12 lg:grid-cols-12">
+    <div class="order-last flex min-w-0 flex-col gap-4 lg:order-first lg:col-span-7">
+      <figure class="overflow-hidden rounded-xl border bg-card">
+        <figcaption class="flex items-center justify-between border-b px-4 py-2 text-xs text-muted-foreground">
+          <span>WhatsApp</span>
+          <span>Conversación de ejemplo</span>
+        </figcaption>
+        <div class="flex flex-col gap-3 p-4 text-sm">
+          <p class="max-w-[80%] self-end rounded-lg rounded-br-sm bg-primary px-3 py-2 text-primary-foreground">
+            Hola, quiero agendar un corte para el sábado.
+          </p>
+          <div class="flex max-w-[85%] flex-col gap-2 self-start rounded-lg rounded-bl-sm bg-muted px-3 py-2">
+            <p>Claro. Estos son los horarios disponibles el sábado con Laura:</p>
+            <ul class="flex flex-wrap gap-1.5 font-mono text-xs">
+              <li class="rounded-full border bg-background px-2 py-0.5">9:00</li>
+              <li class="rounded-full border bg-background px-2 py-0.5">10:30</li>
+              <li class="rounded-full border bg-background px-2 py-0.5">15:00</li>
+            </ul>
+          </div>
+          <p class="max-w-[80%] self-end rounded-lg rounded-br-sm bg-primary px-3 py-2 text-primary-foreground">10:30</p>
+          <p class="flex max-w-[85%] items-start gap-2 self-start rounded-lg rounded-bl-sm bg-muted px-3 py-2">
+            <Icon name="circle-check" class="mt-0.5 size-4 text-success-foreground" />
+            <span>Listo. Tu cita quedó para el sábado a las 10:30. Te recordaremos un día antes y una hora antes.</span>
+          </p>
+        </div>
+      </figure>
+    </div>
+
+    <div class="flex flex-col gap-6 lg:col-span-5">
+      <div class="flex items-center gap-3">
+        <img src="/images/wappiz-mark.png" alt="" width="32" height="32" class="size-8" />
+        <h3 id="wappiz-titulo" class="text-2xl font-medium tracking-tight">Wappiz</h3>
+        <span class="rounded-full border px-2 py-0.5 text-[0.6875rem] font-medium text-muted-foreground">Código abierto</span>
+      </div>
+      <p class="text-pretty text-lg/8">
+        Agenda de citas por WhatsApp para negocios de servicios. Tus clientes eligen servicio, persona y hora en
+        una conversación; tú lo administras todo desde un panel web.
+      </p>
+      <ul class="flex flex-col gap-2.5 text-sm text-muted-foreground">
+        {
+          wappizFacts.map((fact) => (
+            <li class="flex gap-2.5">
+              <Icon name="check" class="mt-0.5 size-4 text-foreground" />
+              {fact}
+            </li>
+          ))
+        }
+      </ul>
+      <p class="font-mono text-xs text-muted-foreground">Go · PostgreSQL · TanStack Start · WhatsApp Business</p>
+      <div class="flex flex-wrap gap-3">
+        <a href="https://wappiz.cantte.com" class="btn-outline h-10">
+          Visitar Wappiz
+          <Icon name="arrow-up-right" class="size-3.5" />
+        </a>
+        <a
+          href="https://github.com/CarlosPavajeau/wappiz"
+          class="btn h-10 px-3 text-muted-foreground hover:bg-muted hover:text-foreground"
+        >
+          <Icon name="github" class="size-4" />
+          Ver el código
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <!-- Practices -->
+  <div class="flex flex-col gap-8 border-t pt-12">
+    <div class="flex max-w-2xl flex-col gap-3">
+      <h3 class="text-2xl font-medium tracking-tight">Lo que llevamos a tu proyecto</h3>
+      <p class="text-pretty text-muted-foreground">
+        Las prácticas que sostienen a Cetus y Wappiz en producción no son extras: vienen incluidas en lo que
+        construimos para ti.
+      </p>
+    </div>
+    <dl class="divide-y border-y">
+      {
+        practices.map((item) => (
+          <div class="grid gap-x-10 gap-y-1 py-4 md:grid-cols-12">
+            <dt class="font-medium md:col-span-3">{item.name}</dt>
+            <dd class="text-sm text-muted-foreground md:col-span-5">{item.text}</dd>
+            <dd class="text-sm text-muted-foreground md:col-span-4" set:html={item.where} />
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</Section>
