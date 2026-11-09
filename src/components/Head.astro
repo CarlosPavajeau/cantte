@@ -30,7 +30,11 @@ const jsonLd = [
       name: 'Servicios de desarrollo de software',
       itemListElement: services.map((s) => ({
         '@type': 'Offer',
-        itemOffered: { '@type': 'Service', name: s.name, description: s.summary },
+        itemOffered: {
+          '@type': 'Service',
+          name: s.name,
+          description: s.summary,
+        },
       })),
     },
     owns: [
@@ -39,14 +43,16 @@ const jsonLd = [
         name: 'Cetus',
         url: 'https://cetus.cantte.com',
         applicationCategory: 'BusinessApplication',
-        description: 'API de facturación electrónica para Colombia, conectada a la DIAN.',
+        description:
+          'API de facturación electrónica para Colombia, conectada a la DIAN.',
       },
       {
         '@type': 'SoftwareApplication',
         name: 'Wappiz',
         url: 'https://wappiz.cantte.com',
         applicationCategory: 'BusinessApplication',
-        description: 'Plataforma de código abierto para agendar citas por WhatsApp.',
+        description:
+          'Plataforma de código abierto para agendar citas por WhatsApp.',
       },
     ],
   },

@@ -3,7 +3,10 @@ export const site = {
   url: 'https://www.cantte.com',
   email: 'contact@cantte.com',
   /** Digits only, with country code. PUBLIC_WHATSAPP_NUMBER overrides it; an empty value hides the WhatsApp buttons. */
-  whatsapp: (import.meta.env.PUBLIC_WHATSAPP_NUMBER ?? '573002206329').replace(/\D/g, ''),
+  whatsapp: (import.meta.env.PUBLIC_WHATSAPP_NUMBER ?? '573002206329').replace(
+    /\D/g,
+    '',
+  ),
   title: 'cantte · Desarrollo de software a la medida en Colombia',
   description:
     'Empresa de desarrollo de software en Colombia. Construimos plataformas web, APIs e integraciones, apps móviles y analítica de datos, y operamos nuestros propios productos en producción.',
@@ -26,7 +29,12 @@ export const services: readonly {
     name: 'Plataformas web a la medida',
     summary:
       'Productos SaaS, herramientas internas y portales para clientes. Reemplazamos hojas de cálculo y procesos manuales por software que tu equipo usa todos los días.',
-    deliverables: ['Aplicación web', 'Panel de administración', 'Autenticación y roles', 'Despliegue'],
+    deliverables: [
+      'Aplicación web',
+      'Panel de administración',
+      'Autenticación y roles',
+      'Despliegue',
+    ],
     examples: 'SaaS · ERP ligeros · portales de clientes',
   },
   {
@@ -35,7 +43,12 @@ export const services: readonly {
     name: 'APIs e integraciones',
     summary:
       'Backends y APIs REST documentadas, pagos, facturación electrónica ante la DIAN, WhatsApp y servicios de terceros. Con idempotencia, colas de trabajo y webhooks firmados.',
-    deliverables: ['API REST /v1', 'Especificación OpenAPI', 'Webhooks', 'Documentación'],
+    deliverables: [
+      'API REST /v1',
+      'Especificación OpenAPI',
+      'Webhooks',
+      'Documentación',
+    ],
     examples: 'DIAN · pasarelas de pago · WhatsApp Business',
   },
   {
@@ -44,7 +57,12 @@ export const services: readonly {
     name: 'Apps móviles',
     summary:
       'Aplicaciones para iOS y Android conectadas al mismo backend que tu plataforma web, con notificaciones y el flujo pensado para el teléfono.',
-    deliverables: ['App iOS', 'App Android', 'Notificaciones', 'Publicación en tiendas'],
+    deliverables: [
+      'App iOS',
+      'App Android',
+      'Notificaciones',
+      'Publicación en tiendas',
+    ],
     examples: 'apps de clientes · apps de campo · reservas',
   },
   {
@@ -53,7 +71,12 @@ export const services: readonly {
     name: 'Analítica de datos',
     summary:
       'Tableros, reportes y flujos de datos que reúnen lo que hoy está repartido entre sistemas, para decidir con cifras y no con intuición.',
-    deliverables: ['Tableros', 'Flujos de datos (ETL)', 'Reportes automáticos', 'Modelo de datos'],
+    deliverables: [
+      'Tableros',
+      'Flujos de datos (ETL)',
+      'Reportes automáticos',
+      'Modelo de datos',
+    ],
     examples: 'ventas · operación · facturación',
   },
 ]
@@ -144,7 +167,8 @@ export const faq: readonly { question: string; answer: string }[] = [
       'Lo definimos en la propuesta según el alcance. Trabajamos por entregas: cada una queda funcionando en un ambiente de pruebas que puedes usar, así ves el avance sin esperar al final.',
   },
   {
-    question: '¿Pueden integrar facturación electrónica de la DIAN en mi sistema?',
+    question:
+      '¿Pueden integrar facturación electrónica de la DIAN en mi sistema?',
     answer:
       'Sí. Construimos y operamos Cetus, una API de facturación electrónica conectada a la DIAN. Podemos integrarla en tu sistema o construir la integración que necesites.',
   },
@@ -160,7 +184,8 @@ export const faq: readonly { question: string; answer: string }[] = [
   },
 ]
 
-const serviceName = (id: ServiceId | null) => services.find((s) => s.id === id)?.name
+const serviceName = (id: ServiceId | null) =>
+  services.find((s) => s.id === id)?.name
 
 export function contactMessage(id: ServiceId | null): string {
   const ask = services.find((s) => s.id === id)?.ask
@@ -170,10 +195,14 @@ export function contactMessage(id: ServiceId | null): string {
 }
 
 export function mailtoHref(id: ServiceId | null = null): string {
-  const subject = serviceName(id) ? `Proyecto: ${serviceName(id)}` : 'Nuevo proyecto'
+  const subject = serviceName(id)
+    ? `Proyecto: ${serviceName(id)}`
+    : 'Nuevo proyecto'
   return `mailto:${site.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(contactMessage(id))}`
 }
 
 export function whatsappHref(id: ServiceId | null = null): string | null {
-  return site.whatsapp ? `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(contactMessage(id))}` : null
+  return site.whatsapp
+    ? `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(contactMessage(id))}`
+    : null
 }
